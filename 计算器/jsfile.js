@@ -2,8 +2,8 @@
 	let res = document.getElementById("result");
 	let info = document.getElementById("information");
 	if(str == 'AC') {
-		res.innerHTML = '';
-		info.innerHTML = '';
+		res.innerText = '';
+		info.innerText = '';
 		return;
 	}
 
@@ -39,10 +39,11 @@
 			}
 		}
 		else if(judgeNum(info.innerText)){
-			info.innerText = String(parseFloat(info.innerHTML)/100);
+			info.innerText = String(parseFloat(info.innerText)/100);
 		}
 		else if(!judgeNum(info.innerText)) {
 			res.innerText = "invalid input!";
+			info.innerText = '';
 		}
 		return;
 	}
@@ -53,31 +54,37 @@
 		}
 	}
 	else if(res.innerText == '' && info.innerText != '') {
-		let r1 = info.innerHTML;
+		let r1 = info.innerText;
 		if(str == '+' || str == '-' || str == '×' || str == '÷') {
 			if(judgeNum(r1))
 			{
-				res.innerHTML = r1 + str;
-				info.innerHTML = '';
+				res.innerText = r1 + str;
+				info.innerText = '';
 				return;
 			}
 			else{
-				res.innerHTML = "invalid input!";
-				info.innerHTML = '';
+				res.innerText = "invalid input!";
+				info.innerText = '';
 				return;
 			}
 		}
 		else if(str == '=') {
-			res.innerHTML = r1;
-			info.innerHTML = '';
+			if(judgeNum(r1)) {
+				res.innerText = r1;
+				info.innerText = '';
+			}
+			else {
+				res.innerText = "invalid input!";
+				info.innerText = '';
+			}
 			return;
 		}
 	}
 	else if(res.innerText != '' && info.innerText == '') {
 		if(str == '+' || str == '-' || str == '×' || str == '÷') {
 			if(judgeNum(res.innerText)){
-				res.innerHTML = res.innerHTML + str;
-				info.innerHTML = '';
+				res.innerText = res.innerText + str;
+				info.innerText = '';
 			}
 			else{
 				res.innerText = 'invalid input!';
@@ -86,7 +93,7 @@
 		}
 		else if(str == '=') {
 			if(judgeNum(res.innerText)){
-				info.innerHTML = '';
+				info.innerText = '';
 			}
 			else{
 				res.innerText = 'invalid input!';
@@ -99,46 +106,61 @@
 
 			}
 			else {
-				res.innerHTML = '';
+				res.innerText = '';
 			}
 		}
 	}
 	else if(res.innerText != '' && info.innerText != '') {
 		if(str == '=') {
-			if(judgeNum(info.innerHTML))
+			if(judgeNum(info.innerText))
 			{
 				calcu();
 				return;
 			}
 			else {
-				res.innerHTML = "invalid input!";
-				info.innerHTML = '';
+				res.innerText = "invalid input!";
+				info.innerText = '';
 				return;
 			}
 		}
 		else if(str == '+' || str == '-' || str == '×' || str == '÷') {
-			if(judgeNum(info.innerHTML))
+			if(judgeNum(info.innerText))
 			{
 				calcu();
-				res.innerHTML = res.innerHTML + str;
+				res.innerText = res.innerText + str;
 				return;
 			}
 			else {
-				res.innerHTML = "invalid input!";
-				info.innerHTML = '';
+				res.innerText = "invalid input!";
+				info.innerText = '';
 				return;
 			}	
 		}
 	}
-	info.innerHTML = info.innerHTML+str;
+	info.innerText = info.innerText+str;
 }
 
 function judgeNum(str) {
 	if(str.length == 0){
 		return false;
 	}
+	if(str[0] == '-' && str.length == 1) {
+		console.log("haha");
+		return false;
+	}
 	let flag = new Boolean(false);
 	for (var i = str.length - 1; i >= 0; i--) {
+		if(str[i] != '.' && str[i] != '-') {
+			if(parseInt(str[i]) >= 0 && parseInt(str[i]) <= 9) {
+				console.log(str[i]);
+				console.log(parseInt(str[i]));
+			}
+			else {
+				console.log(str[i]);
+				console.log(parseInt(str[i]));
+				return false;
+			}
+		}
 		if(str[i] == '.' && i == str.length-1) {
 			return false;
 		}
@@ -164,24 +186,24 @@ function judgeNum(str) {
 function calcu() {
 	let res = document.getElementById("result");
 	let info = document.getElementById("information");
-	let r2 = parseFloat(res.innerHTML.substring(0,res.innerHTML.length-1));
-	let r3 = parseFloat(info.innerHTML);
+	let r2 = parseFloat(res.innerText.substring(0,res.innerText.length-1));
+	let r3 = parseFloat(info.innerText);
 	if(res.innerText[res.innerText.length-1] == '+') {
 		let r4 = r2 + r3;
-		res.innerHTML = r4;
-		info.innerHTML = '';
+		res.innerText = r4;
+		info.innerText = '';
 	}
 	else if(res.innerText[res.innerText.length-1] == '-') {
 		let r4 = r2 - r3;
-		res.innerHTML = r4;
-		info.innerHTML = '';
+		res.innerText = r4;
+		info.innerText = '';
 	}
 	else if(res.innerText[res.innerText.length-1] == '×') {
 		console.log(r2);
 		console.log(r3);
 		let r4 = (r2*10000) * (r3*10000)/100000000;
-		res.innerHTML = r4;
-		info.innerHTML = '';
+		res.innerText = r4;
+		info.innerText = '';
 	}
 	else if(res.innerText[res.innerText.length-1] == '÷') {
 		if(r3 == '0'){
@@ -190,8 +212,8 @@ function calcu() {
 			return;
 		}
 		let r4 = (r2*10000) / (r3*10000);
-		res.innerHTML = r4;
-		info.innerHTML = '';
+		res.innerText = r4;
+		info.innerText = '';
 	}
 	return;
 }
