@@ -1,4 +1,4 @@
-function display (str){
+ function display (str){
 	let res = document.getElementById("result");
 	let info = document.getElementById("information");
 	if(str == 'AC') {
@@ -6,17 +6,66 @@ function display (str){
 		info.innerHTML = '';
 		return;
 	}
+
+	if(str == '+/-') {
+		if(info.innerText == '' && res.innerText != ''){
+			if(judgeNum(res.innerText)){
+				if(res.innerText[0] == '-') {
+					res.innerText = res.innerText.substring(1,info.length);
+				}
+				else if(res.innerText[0] != '-') {
+					res.innerText = '-' + res.innerText;
+				}
+			}
+		}
+		else if(info.innerText[0] == '-') {
+			info.innerText = info.innerText.substring(1,info.length);
+		}
+		else if(info.innerText[0] != '-') {
+			info.innerText = '-' + info.innerText;
+		}
+		return;
+	}
+
+	if(str == '%') {
+		if(info.innerText == '' && res.innerText == ''){
+			res.innerText = "invalid input!";
+			return;
+		}
+		else if(info.innerText == '' && res.innerText != '') {
+			if(judgeNum(res.innerText)){
+				res.innerText = String(parseFloat(res.innerText)/100);
+				return;
+			}
+		}
+		else if(judgeNum(info.innerText)){
+			info.innerText = String(parseFloat(info.innerHTML)/100);
+		}
+		else if(!judgeNum(info.innerText)) {
+			res.innerText = "invalid input!";
+		}
+		return;
+	}
+
 	if(res.innerText == '' && info.innerText == '') {
-		if(str == '+' || str == '−' || str == '×' || str == '÷' || str == '=') {
+		if(str == '+' || str == '-' || str == '×' || str == '÷' || str == '=') {
 			return;
 		}
 	}
 	else if(res.innerText == '' && info.innerText != '') {
 		let r1 = info.innerHTML;
-		if(str == '+' || str == '−' || str == '×' || str == '÷') {
-			res.innerHTML = r1 + str;
-			info.innerHTML = '';
-			return;
+		if(str == '+' || str == '-' || str == '×' || str == '÷') {
+			if(judgeNum(r1))
+			{
+				res.innerHTML = r1 + str;
+				info.innerHTML = '';
+				return;
+			}
+			else{
+				res.innerHTML = "invalid input!";
+				info.innerHTML = '';
+				return;
+			}
 		}
 		else if(str == '=') {
 			res.innerHTML = r1;
@@ -25,19 +74,28 @@ function display (str){
 		}
 	}
 	else if(res.innerText != '' && info.innerText == '') {
-		if(str == '+' || str == '−' || str == '×' || str == '÷') {
-			res.innerHTML = res.innerHTML + str;
-			info.innerHTML = '';
+		if(str == '+' || str == '-' || str == '×' || str == '÷') {
+			if(judgeNum(res.innerText)){
+				res.innerHTML = res.innerHTML + str;
+				info.innerHTML = '';
+			}
+			else{
+				res.innerText = 'invalid input!';
+			}
 			return;
 		}
 		else if(str == '=') {
-			res.innerHTML = res.innerHTML;
-			info.innerHTML = '';
+			if(judgeNum(res.innerText)){
+				info.innerHTML = '';
+			}
+			else{
+				res.innerText = 'invalid input!';
+			}
 			return;
 		}
 		else {
 			let tmp = res.innerText[res.innerText.length-1];
-			if(tmp == '+' || tmp == '−' || tmp == '×' || tmp == '÷') {
+			if(tmp == '+' || tmp == '-' || tmp == '×' || tmp == '÷') {
 
 			}
 			else {
@@ -47,36 +105,93 @@ function display (str){
 	}
 	else if(res.innerText != '' && info.innerText != '') {
 		if(str == '=') {
-			let r2 = parseFloat(res.innerHTML.substring(0,res.innerHTML.length-1));
-			let r3 = parseFloat(info.innerHTML.substring(0,res.innerHTML.length));
-			if(res.innerText[res.innerText.length-1] == '+') {
-				let r4 = r2 + r3;
-				res.innerHTML = r4;
-				info.innerHTML = '';
-				console.log("r4:"+4);
+			if(judgeNum(info.innerHTML))
+			{
+				calcu();
+				return;
 			}
-			else if(res.innerText[res.innerText.length-1] == '−') {
-				let r4 = r2 - r3;
-				res.innerHTML = r4;
+			else {
+				res.innerHTML = "invalid input!";
 				info.innerHTML = '';
-				console.log("r4:"+r4);
+				return;
 			}
-			else if(res.innerText[res.innerText.length-1] == '×') {
-				let r4 = r2 * r3;
-				res.innerHTML = r4;
+		}
+		else if(str == '+' || str == '-' || str == '×' || str == '÷') {
+			if(judgeNum(info.innerHTML))
+			{
+				calcu();
+				res.innerHTML = res.innerHTML + str;
+				return;
+			}
+			else {
+				res.innerHTML = "invalid input!";
 				info.innerHTML = '';
-				console.log("r4:"+r4);
-			}
-			else if(res.innerText[res.innerText.length-1] == '÷') {
-				let r4 = r2 / r3;
-				res.innerHTML = r4;
-				info.innerHTML = '';
-				console.log("r4:"+r4);
-			}
-			return;
+				return;
+			}	
 		}
 	}
 	info.innerHTML = info.innerHTML+str;
-	if(info.innerText == '')
-		console.log("hehe");
+}
+
+function judgeNum(str) {
+	if(str.length == 0){
+		return false;
+	}
+	let flag = new Boolean(false);
+	for (var i = str.length - 1; i >= 0; i--) {
+		if(str[i] == '.' && i == str.length-1) {
+			return false;
+		}
+		else if(str[i] == '.' && i != str.length-1)
+		{
+			if(flag == false){
+				flag = true;
+			}
+			else{
+				return false;
+			}
+		}
+		if(str[i] == '+' || str[i] == '×' || str[i] == '÷') {
+			return false;
+		}
+		if(str[i] == '-' && i != 0) {
+			return false;
+		}
+	}
+	return true;
+}
+
+function calcu() {
+	let res = document.getElementById("result");
+	let info = document.getElementById("information");
+	let r2 = parseFloat(res.innerHTML.substring(0,res.innerHTML.length-1));
+	let r3 = parseFloat(info.innerHTML);
+	if(res.innerText[res.innerText.length-1] == '+') {
+		let r4 = r2 + r3;
+		res.innerHTML = r4;
+		info.innerHTML = '';
+	}
+	else if(res.innerText[res.innerText.length-1] == '-') {
+		let r4 = r2 - r3;
+		res.innerHTML = r4;
+		info.innerHTML = '';
+	}
+	else if(res.innerText[res.innerText.length-1] == '×') {
+		console.log(r2);
+		console.log(r3);
+		let r4 = (r2*10000) * (r3*10000)/100000000;
+		res.innerHTML = r4;
+		info.innerHTML = '';
+	}
+	else if(res.innerText[res.innerText.length-1] == '÷') {
+		if(r3 == '0'){
+			res.innerText = "The divisor can't be zero!";
+			info.innerText = '';
+			return;
+		}
+		let r4 = r2 / r3;
+		res.innerHTML = r4;
+		info.innerHTML = '';
+	}
+	return;
 }
