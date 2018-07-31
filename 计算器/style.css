@@ -1,0 +1,168 @@
+* {
+	box-sizing: border-box;
+}
+
+button{
+	outline: none;
+}
+
+body {
+	display: flex;
+	align-items:center;
+  	justify-content:center;
+}
+
+#container {
+	display: flex;
+	flex-wrap: wrap;
+	flex-direction: row;
+	align-items: center;
+  	justify-content: center;
+  	width: 540px;
+  	height: 650px;
+  	background-color: grey;
+  	border-radius:10px;
+  	box-shadow: 5px 5px 5px #888888;
+}
+
+#top {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	width: 540px;
+	height: 150px;
+	background-color: grey;
+	border: 1px solid white;
+	border-top-left-radius:10px; 
+	border-top-right-radius:10px; 
+}
+
+#top #tool {
+	display: flex;
+	justify-content: flex-end;
+	align-items: flex-start;
+	align-content: flex-start;
+	width: 540px;
+	height: 43px;
+	background-color:#E8E8E8;
+	border-top-left-radius:10px; 
+	border-top-right-radius:10px; 
+}
+
+#top #tool #btn1 {
+	width: 24px;
+	height: 43px;
+	background-color: #E8E8E8;
+	font-size: 130%;
+	margin-top: 1%;
+	text-align: center;
+}
+
+#top #tool #btn1:hover {
+	background-color: #D0D0D0;
+}
+
+#top #tool #btn2 {
+	width: 24px;
+	height: 43px;
+	background-color: #E8E8E8;
+	font-size: 135%;
+	margin-top: 0.5%;
+	text-align: center;
+}
+
+#top #tool #btn2:hover {
+	background-color: #D0D0D0;
+}
+
+#top #tool #btn3 {
+	width: 24px;
+	height: 43px;
+	background-color: #E8E8E8;
+	font-size: 130%;
+	border-top-right-radius:10px; 
+	margin-top: 1%;
+	text-align: center;
+}
+
+#top #tool #btn3:hover {
+	background-color:#D0D0D0;
+}
+
+#top #information {
+	width: 540px;
+	height: 107px;
+	background-color: grey;
+	color:white;
+}
+
+#bottom {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	align-items: stretch;
+	justify-content: center;
+	align-content: flex-start;
+	text-align: center;
+	width: 540px;
+	height: 500px;
+	background-color: green;
+	border-bottom-left-radius: 10px;
+	border-bottom-right-radius: 10px;
+}
+
+#bottom .row {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	align-items: center;
+	justify-content: center;
+	align-content: center;
+	width: 540px;
+	height: 100px;
+	background-color: white;
+	
+}
+
+#bottom .operator1 {
+	width:135px;
+	height:100px;
+	background-color: #E8E8E8;
+	border: 1px solid white;
+	font-size: 250%;
+	text-align: center;
+	line-height: 250%;
+	font-weight: bold;
+}
+
+#bottom .operator1:hover {
+	background-color: #B0B0B0;
+	color:white;
+}
+
+#bottom .operator2 {
+	width:135px;
+	height:100px;
+	background-color: #FF9933;
+	border: 1px solid white;
+	font-size: 250%;
+	text-align: center;
+	line-height: 250%;
+	font-weight: bold;
+	color:white;
+}
+
+#bottom .operator2:hover {
+	background-color: #B0B0B0;
+	color:white;
+}
+
+
+#bottom .operator1:active {
+
+}
+
+#bottom .operator2:active {
+	
+}
