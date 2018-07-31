@@ -189,7 +189,7 @@ function calcu() {
 			info.innerText = '';
 			return;
 		}
-		let r4 = r2 / r3;
+		let r4 = (r2*10000) / (r3*10000);
 		res.innerHTML = r4;
 		info.innerHTML = '';
 	}
