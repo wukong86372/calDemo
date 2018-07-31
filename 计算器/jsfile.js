@@ -219,7 +219,6 @@ function calcu() {
 }
 
 function keyDown() {
-	//var keyCode = parseInt(window.event ? event.keyCode : event.which);
 	var e = event || window.event || arguments.callee.caller.arguments[0];
 	var keyCode = e.keyCode; 
 	console.log(keyCode);
@@ -245,7 +244,7 @@ function keyDown() {
 	else if(e && keyCode == 189) {
 		display('-');
 	}
-	else if(e && keyCode == 187) {
+	else if(e && keyCode == 187 || keyCode == 13) {
 		display('=');
 	}
 	else if(e && keyCode == 191) {
