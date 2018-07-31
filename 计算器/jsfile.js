@@ -189,12 +189,12 @@ function calcu() {
 	let r2 = parseFloat(res.innerText.substring(0,res.innerText.length-1));
 	let r3 = parseFloat(info.innerText);
 	if(res.innerText[res.innerText.length-1] == '+') {
-		let r4 = r2 + r3;
+		let r4 = (r2*10000 + r3*10000)/10000;
 		res.innerText = r4;
 		info.innerText = '';
 	}
 	else if(res.innerText[res.innerText.length-1] == '-') {
-		let r4 = r2 - r3;
+		let r4 = (r2*10000 - r3*10000)/10000;
 		res.innerText = r4;
 		info.innerText = '';
 	}
@@ -217,3 +217,42 @@ function calcu() {
 	}
 	return;
 }
+
+function keyDown() {
+	//var keyCode = parseInt(window.event ? event.keyCode : event.which);
+	var e = event || window.event || arguments.callee.caller.arguments[0];
+	var keyCode = e.keyCode; 
+	console.log(keyCode);
+	if(keyCode == 187 && e.shiftKey) {
+		display('+');
+	}
+	else if(keyCode == 53 && e.shiftKey) {
+		display('%');
+	}
+	else if(keyCode == 192 && e.shiftKey) {
+		display('AC');
+	}
+	else if(keyCode == 189 && e.shiftKey) {
+		display('+/-');
+	}
+	else if(keyCode == 56 && e.shiftKey) {
+		display('×');
+	}
+	else if(e && (keyCode == 48 || keyCode == 49 || keyCode == 50 || keyCode == 51 || keyCode == 52 || 
+		keyCode == 53 || keyCode == 54 || keyCode == 55 || keyCode == 56 || keyCode == 57) ) {
+		display(keyCode - 48);
+	}
+	else if(e && keyCode == 189) {
+		display('-');
+	}
+	else if(e && keyCode == 187) {
+		display('=');
+	}
+	else if(e && keyCode == 191) {
+		display('÷');
+	}
+	else if(e && keyCode == 190) {
+		display('.');
+	}
+}
+
